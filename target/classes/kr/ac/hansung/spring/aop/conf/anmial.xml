@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
+
+	<!-- anotation기능 활성화 -->
+	<context:annotation-config></context:annotation-config>
+
+	<!-- constructor로 주입 -->
+	<bean id="id_dog" class="kr.ac.hansung.spring.aop.Dog">
+		<constructor-arg value="poodle" />
+		<qualifier value="qf_dog"></qualifier>
+	</bean>
+
+	<!-- setter로 주입 -->
+	<bean id="id_cat" class="kr.ac.hansung.spring.aop.Cat">
+		<property name="myName" value="bella"></property>
+		<qualifier value="qf_cat"></qualifier>
+	</bean>
+
+	<!-- 생성자로로 주입. petOwner class에서 @RequiredArgsConstructor 해줫기 때문에 -->
+	<bean id="id_petOwner" class="kr.ac.hansung.spring.aop.PetOwner">
+	</bean>
+
+	<bean id="id_logger" class="kr.ac.hansung.spring.aop.Logger">
+	</bean>
+
+	<!-- <aop:config>
+		<aop:aspect ref="id_logger" id="myAspect">
+			<aop:pointcut
+				expression="execution( void kr.ac.hansung.spring.aop.*.sound() )"
+				id="selectSound" />
+			<aop:before method="aboutToSound"
+				pointcut-ref="selectSound" />
+		</aop:aspect>
+	</aop:config> -->
+	
+	<!-- anotation기능 활성화 -->
+	<aop:aspectj-autoproxy></aop:aspectj-autoproxy>
+</beans>
